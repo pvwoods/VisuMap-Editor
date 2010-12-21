@@ -29,8 +29,8 @@ package com.visuengine.structs.media.vmap {
 			
 		}
 		
-		public function addLayer():uint{
-			return _layers.push(new MapLayerData());
+		public function addLayer(layer:MapLayerData=null):uint{
+				return _layers.push(layer == null ? new MapLayerData():layer);
 		}
 		
 		public function addSprite(sprite:MapSpriteData, layerIndex:uint):uint{
@@ -42,6 +42,10 @@ package com.visuengine.structs.media.vmap {
 		
 		public function addImageData(image:ByteArray):uint{
 			return _spriteImageData.push(image);
+		}
+		
+		public function getImageData(index:uint):ByteArray{
+			return _spriteImageData[index];
 		}
 		
 		// once this gets solidified a bit more, it could use a refactor
@@ -78,8 +82,42 @@ package com.visuengine.structs.media.vmap {
 			return result;
 		}
 		
-		public static function generateMapfromFile():VMap{
-			return new VMap();
+		public static function generateMapfromFile(data:ByteArray):VMap{
+			var result:VMap = new VMap();
+			
+			data.endian = STRUCT_ENDIAN;
+			
+			data.uncompress();
+			
+			var sig:uint = data.readUnsignedInt();
+			
+			if(sig != STRUCT_SIGNATURE) throw new Error("this file does not contain the appropriate \"VUMP\" signature!");
+			
+			result.overrideStructVersion(data.readByte());
+			result.imageDataEncodingType = data.readByte();
+			
+			var totalImages:uint = data.readUnsignedShort();
+			var totalLayers:uint = data.readUnsignedShort();
+			
+			data.position += 2;
+			
+			for(var i:uint = 0; i < totalImages; i++){
+				var ba:ByteArray = new ByteArray();
+				var baLength:uint = data.readUnsignedInt();
+				data.readBytes(ba, 0, baLength);
+				data.position += 2;
+				result.addImageData(ba);
+			}
+			
+			for(var q:uint = 0; q < totalLayers; q++){
+				var mld:MapLayerData = MapLayerData.fromByteArray(data);
+				data.position += 2;
+				result.addLayer(mld);
+			}
+			
+			
+			
+			return result;
 		}
 		
 		public function get totalLayers():uint{
@@ -92,6 +130,14 @@ package com.visuengine.structs.media.vmap {
 		
 		public function get version():uint{
 			return _structVersion;
+		}
+		
+		public function set imageDataEncodingType(value:uint):void{
+			_imageDataEncodingType = value;
+		}
+		
+		public function get imageDataEncodingType():uint{
+			return _imageDataEncodingType;
 		}
 		
 		public function overrideStructVersion(version:uint):void{

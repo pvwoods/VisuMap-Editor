@@ -25,6 +25,16 @@ package com.visuengine.structs.media.vmap
 			return result;
 			
 		}
+		
+		public static function fromByteArray(data:ByteArray):MapLayerData{
+			var result:MapLayerData = new MapLayerData();
+			var totalSprites:uint = data.readUnsignedShort();
+			for(var i:uint = 0; i < totalSprites; i++){
+				var msd:MapSpriteData = MapSpriteData.fromByteArray(data);
+				result.sprites.push(msd);
+			}
+			return result;
+		}
 
 	}
 }

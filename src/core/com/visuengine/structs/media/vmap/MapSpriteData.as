@@ -55,5 +55,22 @@ package com.visuengine.structs.media.vmap
 			
 		}
 		
+		public static function fromByteArray(data:ByteArray):MapSpriteData{
+			var result:MapSpriteData = new MapSpriteData();
+			
+			result.x = data.readInt();
+			result.y = data.readInt();
+			result.z = data.readInt();
+			result.alpha = data.readByte();
+			result.tintR = data.readByte();
+			result.tintG = data.readByte();
+			result.tintB = data.readByte();
+			result.rot = data.readShort() / 1000;
+			result.scaleX = data.readShort() / 10;
+			result.scaleY = data.readShort() / 10;
+			
+			return result;
+		}
+		
 	}
 }
