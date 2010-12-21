@@ -37,6 +37,7 @@
 		<antcall target="compile"/>
 		<antcall target="createTempCert"/>
 		<antcall target="packageTool"/>
+		<antcall target="clean"/>
 	</target>
 	
 	<target name="compile">
@@ -72,6 +73,10 @@
 		  <arg value="application.xml"/>
 		  <arg value="bin/visumapEditor.swf"/>
 	  </java>
+	</target>
+	
+	<target name="clean">
+		<delete file="SelfSigned.pfx"/>
 	</target>
 	
 	<target name="test" depends="compile">
