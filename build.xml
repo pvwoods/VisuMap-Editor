@@ -15,8 +15,6 @@
 		</and>
 	</condition>
 	
-	<property file="${src.dir}/build.properties"/>
-	
 	<condition property="FLEX_HOME" value="${FLEX_HOME.default}">
 		<not>
 			<isset property="FLEX_HOME"/>
