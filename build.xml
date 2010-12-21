@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <project name="VisuMapEditor" default="toolComplete" basedir="./">
 
-    <property name="APP_ROOT" value="src/com/visuengine/tools/mapeditor"/>
+    <property name="APP_ROOT" value="src/core/com/visuengine/tools/mapeditor"/>
     <property name="debugMode" value="false"/>
 
 	<property environment="env"/>
