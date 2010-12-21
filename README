@@ -1,0 +1,9 @@
+Not much is here as of now.
+
+to test using adl:
+
+$ ant test
+
+to build the air executable:
+
+$ ant
