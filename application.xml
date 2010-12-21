@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<application xmlns="http://ns.adobe.com/air/application/1.5"> 
+	
+	<id>com.visuengine.tools.mapeditor</id> 
+	<version>1.0</version> 
+	<filename>VisuMapEditor</filename> 
+	
+	<name>VisuMapEditorr</name> 
+	<description></description> 
+	<copyright></copyright> 
+	
+	<initialWindow> 
+		<title>VisuMap Editor</title> 
+		<content>bin/visumapEditor.swf</content> 
+		<systemChrome>standard</systemChrome> 
+		<transparent>false</transparent> 
+		<visible>true</visible> 
+		<minimizable>true</minimizable> 
+		<maximizable>true</maximizable> 
+		<resizable>false</resizable> 
+	</initialWindow> 
+
+</application>
