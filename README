@@ -1,4 +1,7 @@
-Not much is here as of now.
+Before building, the following src directories will need to be added to src/thirdparty (you could also add swc lib includes to the ant build file):
+
+- minimal comps by bit101 (http://www.minimalcomps.com)
+	* /src/thirdparty/com/bit101/...
 
 to test using adl:
 
