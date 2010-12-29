@@ -6,3 +6,5 @@ SelfSigned.pfx
 
 .actionScriptProperties
 .project
+
+src/thirdparty/
