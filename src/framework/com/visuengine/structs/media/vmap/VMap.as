@@ -1,5 +1,6 @@
 package com.visuengine.structs.media.vmap {
 	
+	import com.visuengine.structs.media.vusprite.VUSprite;
 	import com.visuengine.utils.ByteUtils;
 	
 	import flash.utils.ByteArray;
@@ -16,7 +17,7 @@ package com.visuengine.structs.media.vmap {
 		public static const IMAGE_ENCODING_TYPE_BITMAP_DATA:uint = 2;
 		
 		protected var _layers:Vector.<MapLayerData>;
-		protected var _spriteImageData:Vector.<ByteArray>;
+		protected var _spriteImageData:Vector.<VUSprite>;
 		protected var _structVersion:uint;
 		protected var _imageDataEncodingType:uint;
 		
@@ -44,11 +45,11 @@ package com.visuengine.structs.media.vmap {
 			return _layers[layerIndex].sprites.push(sprite);
 		}
 		
-		public function addImageData(image:ByteArray):uint{
-			return _spriteImageData.push(image);
+		public function addImageData(image:ByteArray, width:uint):uint{
+			return _spriteImageData.push(new VUSprite(image, width));
 		}
 		
-		public function getImageData(index:uint):ByteArray{
+		public function getImageData(index:uint):VUSprite{
 			return _spriteImageData[index];
 		}
 		
@@ -69,9 +70,12 @@ package com.visuengine.structs.media.vmap {
 			result.writeShort(0);
 			// write image data
 			for(var i:uint = 0; i < _spriteImageData.length; i++){
-				_spriteImageData[i].position = 0;
-				result.writeUnsignedInt(_spriteImageData[i].bytesAvailable);
-				result.writeBytes(_spriteImageData[i], 0, _spriteImageData[i].bytesAvailable);
+				_spriteImageData[i].spriteData.position = 0;
+				// width of image
+				ByteUtils.writeUnsignedShort(result, _spriteImageData[i].width);
+				// total length of image data
+				result.writeUnsignedInt(_spriteImageData[i].spriteData.bytesAvailable);
+				result.writeBytes(_spriteImageData[i].spriteData, 0, _spriteImageData[i].spriteData.bytesAvailable);
 				result.writeShort(0);
 			}
 			// write layers
@@ -104,15 +108,16 @@ package com.visuengine.structs.media.vmap {
 			var totalLayers:uint = data.readUnsignedShort();
 			
 			data.position += 2;
-			
+			// read the images
 			for(var i:uint = 0; i < totalImages; i++){
 				var ba:ByteArray = new ByteArray();
+				var imageWidth:uint = data.readUnsignedShort();
 				var baLength:uint = data.readUnsignedInt();
 				data.readBytes(ba, 0, baLength);
 				data.position += 2;
-				result.addImageData(ba);
+				result.addImageData(ba, imageWidth);
 			}
-			
+			// read the layers
 			for(var q:uint = 0; q < totalLayers; q++){
 				var mld:MapLayerData = MapLayerData.fromByteArray(data);
 				data.position += 2;
@@ -130,6 +135,10 @@ package com.visuengine.structs.media.vmap {
 		
 		public function get totalImageData():uint{
 			return _spriteImageData.length;
+		}
+		
+		public function get imageData():Vector.<VUSprite>{
+			return _spriteImageData;
 		}
 		
 		public function get version():uint{
