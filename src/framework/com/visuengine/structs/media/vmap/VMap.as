@@ -33,6 +33,10 @@ package com.visuengine.structs.media.vmap {
 				return _layers.push(layer == null ? new MapLayerData():layer);
 		}
 		
+		public function getLayerByIndex(index:uint):MapLayerData{
+			return _layers[index];
+		}
+		
 		public function addSprite(sprite:MapSpriteData, layerIndex:uint):uint{
 			
 			if(layerIndex >= _layers.length || layerIndex < 0) throw new Error("Layer Index out of Bounds");
