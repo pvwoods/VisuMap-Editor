@@ -14,19 +14,17 @@ package com.visuengine.components.display {
 			
 			_vmap = vmap;
 			_layers = new Vector.<MapLayer>();
+			_container = new Sprite();
 			
 			draw();
 			
 		}
 		
 		public function draw():void{
-			
 			for(var i:uint = 0; i < _vmap.totalLayers; i++){
-				
-				
-				
+				_layers.push(new MapLayer(_vmap.getLayerByIndex(i), _vmap.imageData));
+				_container.addChild(_layers[i]);
 			}
-			
 		}
 		
 		public function get mapContainer():Sprite{

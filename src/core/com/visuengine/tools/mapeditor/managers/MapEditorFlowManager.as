@@ -3,6 +3,7 @@ package com.visuengine.tools.mapeditor.managers
 	import com.visuengine.structs.media.vmap.MapSpriteData;
 	import com.visuengine.structs.media.vmap.VMap;
 	import com.visuengine.tools.mapeditor.actions.requests.VMapFileLoadRequest;
+	import com.visuengine.tools.mapeditor.actions.requests.VMapFileSaveRequest;
 	import com.visuengine.tools.mapeditor.layouts.StandardEditorLayout;
 	import com.visuengine.tools.mapeditor.models.MapEditorWorkingState;
 	
@@ -43,8 +44,11 @@ package com.visuengine.tools.mapeditor.managers
 		}
 		
 		protected function onSaveMapClicked(event:MouseEvent):void{
-			// stub for now
-			
+			VMapFileSaveRequest.dispatchRequestToSaveFileData(_workingState.vmap.generateByteArray(), onMapSaved);
+		}
+		
+		protected function onMapSaved():void{
+			//
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{
