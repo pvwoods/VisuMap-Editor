@@ -1,9 +1,11 @@
 package com.visuengine.components.display {
 	
 	import com.visuengine.structs.media.vmap.MapLayerData;
+	import com.visuengine.structs.media.vmap.MapSpriteData;
 	import com.visuengine.structs.media.vusprite.VUSprite;
 	
 	import flash.display.Bitmap;
+	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	
 	// map layers are treated as sprites instead of bitmaps
@@ -30,9 +32,20 @@ package com.visuengine.components.display {
 		}
 		
 		public function buildLayer():void{
-			
+			trace("total sprites on this layer: " + _layerData.sprites.length.toString());
 			for(var i:uint = 0; i < _layerData.sprites.length; i++){
-				//var bmp:Bitmap = new 
+				var sprite:VUSprite = _imageData[_layerData.sprites[i].imageDataIndex];
+				sprite.spriteData.position = 0;
+				var bd:BitmapData = new BitmapData(sprite.width, sprite.width);
+				bd.setPixels(bd.rect, sprite.spriteData);
+				var bmp:Bitmap = new Bitmap(bd);
+				bmp.x = _layerData.sprites[i].x
+				bmp.y = _layerData.sprites[i].y
+				bmp.rotation = _layerData.sprites[i].rot;
+				bmp.scaleX = _layerData.sprites[i].scaleX;
+				bmp.scaleY = _layerData.sprites[i].scaleY;
+				_sprites.push(bmp);
+				addChild(bmp);
 			}
 			
 		}

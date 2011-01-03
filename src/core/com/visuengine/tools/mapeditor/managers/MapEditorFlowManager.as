@@ -66,18 +66,18 @@ package com.visuengine.tools.mapeditor.managers
 				if(i % 2 == 0){
 					var image:ByteArray = new ByteArray();
 					var imageWidth:uint = 10 + uint(Math.random()*90);
-					var imageHeight:uint = 10 + uint(Math.random()*90);
-					for(var q:uint = 0; q < imageWidth*imageHeight; q++) image.writeUnsignedInt(0xFF << 24 | uint(Math.random() * 0xffffff) << 16);
+					var imageHeight:uint = imageWidth;
+					for(var q:uint = 0; q < imageWidth*imageHeight; q++) image.writeUnsignedInt(0xFF << 24 | uint(Math.random()*0xFF) << 16 | uint(Math.random()*0xFF) << 8 | uint(Math.random()*0xFF));
 					image.position = 0;
 					_workingState.vmap.addImageData(image, imageWidth);
 				}
 				
 				var sprite:MapSpriteData = new MapSpriteData();
 				
-				sprite.x = uint(10 + (Math.random()*300));
-				sprite.y = uint(10 + (Math.random()*300));
+				sprite.x = uint(10 + (Math.random()*500));
+				sprite.y = uint(10 + (Math.random()*500));
 				sprite.alpha = uint(Math.random()*100);
-				sprite.rot = Math.random();
+				sprite.rot = int(Math.random() * 360);
 				sprite.scaleX = .75 + Math.random()*.5;
 				sprite.scaleY = .75 + Math.random()*.5;
 				sprite.tintR = uint(Math.random()*255);
@@ -85,8 +85,12 @@ package com.visuengine.tools.mapeditor.managers
 				sprite.tintB = uint(Math.random()*255);
 				sprite.imageDataIndex = uint(i / 2);
 				
+				_workingState.vmap.addSprite(sprite, layer);
+				
 				
 			}
+			
+			onMapLoaded(_workingState.vmap);
 			
 		}
 		

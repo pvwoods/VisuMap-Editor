@@ -30,11 +30,11 @@ package com.visuengine.tools.mapeditor.panels{
 		}
 		
 		public function setViewPort():void{
-			/*if(!_viewPortSet){
+			if(!_viewPortSet){
 				this.scrollRect = new Rectangle(0, 0, this.width, this.height);
 				this.cacheAsBitmap = true;
 				_viewPortSet = true;
-			}*/
+			}
 		}
 		
 		public function get map():MapView{

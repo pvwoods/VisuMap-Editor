@@ -10,11 +10,12 @@ package com.visuengine.structs.media.vmap
 		public var x:int;
 		public var y:int;
 		public var z:int;
+		public var rot:int;
 		public var alpha:uint; // 0-100
 		public var tintR:uint;
 		public var tintG:uint;
 		public var tintB:uint;
-		public var rot:Number;
+		
 		public var scaleX:Number;
 		public var scaleY:Number;
 		
@@ -25,11 +26,12 @@ package com.visuengine.structs.media.vmap
 			s.x = this.x;
 			s.y = this.y;
 			s.z = this.z;
+			s.rot = this.rot;
 			s.alpha = this.alpha;
 			s.tintR = this.tintR;
 			s.tintG = this.tintG;
 			s.tintB = this.tintB;
-			s.rot = this.rot;
+			
 			s.scaleX = this.scaleX;
 			s.scaleY = this.scaleY;
 			
@@ -43,11 +45,11 @@ package com.visuengine.structs.media.vmap
 			result.writeInt(x);
 			result.writeInt(y);
 			result.writeInt(z);
+			result.writeInt(rot);
 			result.writeByte(alpha);
 			result.writeByte(tintR);
 			result.writeByte(tintG);
 			result.writeByte(tintB);
-			result.writeShort(isNaN(rot) ? 0:(rot * 1000));
 			result.writeShort(isNaN(scaleX) ? 0:(scaleX * 10));
 			result.writeShort(isNaN(scaleY) ? 0:(scaleY * 10));
 			
@@ -58,14 +60,15 @@ package com.visuengine.structs.media.vmap
 		public static function fromByteArray(data:ByteArray):MapSpriteData{
 			var result:MapSpriteData = new MapSpriteData();
 			
+			result.imageDataIndex = data.readUnsignedShort();
 			result.x = data.readInt();
 			result.y = data.readInt();
 			result.z = data.readInt();
+			result.rot = data.readInt();
 			result.alpha = data.readByte();
 			result.tintR = data.readByte();
 			result.tintG = data.readByte();
 			result.tintB = data.readByte();
-			result.rot = data.readShort() / 1000;
 			result.scaleX = data.readShort() / 10;
 			result.scaleY = data.readShort() / 10;
 			
