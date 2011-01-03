@@ -46,6 +46,7 @@
 			<load-config filename="${FLEX_HOME}/frameworks/air-config.xml" />
 			<source-path path-element="${FLEX_HOME}/frameworks"/>
 			<source-path path-element="./src/core"/>
+			<source-path path-element="./src/framework"/>
 			<source-path path-element="./src/thirdparty"/>
 		</mxmlc>
 	</target>

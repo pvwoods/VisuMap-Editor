@@ -37,6 +37,7 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onMapLoaded(map:VMap):void{
 			_workingState.vmap = map;
+			_editorLayout.buildNewMapView(_workingState.vmap);
 		}
 		
 		protected function onSaveMapClicked(event:MouseEvent):void{
