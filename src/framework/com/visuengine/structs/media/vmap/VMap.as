@@ -24,7 +24,7 @@ package com.visuengine.structs.media.vmap {
 		public function VMap(){
 			
 			_layers = new Vector.<MapLayerData>();
-			_spriteImageData = new Vector.<ByteArray>();
+			_spriteImageData = new Vector.<VUSprite>();
 			_structVersion = STRUCT_VERSION;
 			_imageDataEncodingType = IMAGE_ENCODING_TYPE_BITMAP_DATA;
 			
@@ -127,6 +127,10 @@ package com.visuengine.structs.media.vmap {
 			
 			
 			return result;
+		}
+		
+		public function destroy():void{
+			//
 		}
 		
 		public function get totalLayers():uint{
