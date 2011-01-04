@@ -23,6 +23,7 @@ package com.visuengine.tools.mapeditor.layouts
 		
 		public function buildNewMapView(vmap:VMap):void{
 			_mapEditor.buildNewMapView(vmap);
+			
 		}
 		
 		public function destroyMapView():void{

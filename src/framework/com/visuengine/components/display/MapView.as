@@ -3,6 +3,7 @@ package com.visuengine.components.display {
 	import com.visuengine.structs.media.vmap.VMap;
 	
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	
 	public class MapView{
 		
@@ -27,16 +28,33 @@ package com.visuengine.components.display {
 			}
 		}
 		
+		public function clearMap():void{
+			for(var i:uint = 0; i < _layers.length; i++){
+				_container.removeChild(_layers[i]);
+				_layers[i].destroy();
+			}
+			_layers = new Vector.<MapLayer>();
+		}
+		
+		//place holder function
+		public function moveMap(distance:Point):void{
+			for(var i:uint = 0; i < _layers.length; i++){
+				_layers[i].x += distance.x * (_layers.length - i);
+				_layers[i].y += distance.y * (_layers.length - i);
+			}
+		}
+		
+		public function zoomMap(amount:Number):void{
+			
+		}
+		
 		public function get mapContainer():Sprite{
 			return _container;
 		}
 		
 		public function destroy():void{
 			_vmap = null;
-			for(var i:uint = 0; i < _layers.length; i++){
-				_container.removeChild(_layers[i]);
-				_layers[i].destroy();
-			}
+			clearMap();
 		}
 
 	}

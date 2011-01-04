@@ -1,15 +1,15 @@
 package com.visuengine.tools.mapeditor.panels{
 	
 	import com.bit101.components.Panel;
-	import com.visuengine.components.display.MapView;
 	import com.visuengine.structs.media.vmap.VMap;
+	import com.visuengine.tools.mapeditor.components.display.EditorMapView;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.geom.Rectangle;
 	
 	public class MapEditorPanel extends Panel{
 		
-		protected var _map:MapView;
+		protected var _map:EditorMapView;
 		protected var _viewPortSet:Boolean;
 		
 		public function MapEditorPanel(parent:DisplayObjectContainer){
@@ -19,14 +19,24 @@ package com.visuengine.tools.mapeditor.panels{
 		}
 		
 		public function buildNewMapView(map:VMap):void{
-			_map = new MapView(map);
+			_map = new EditorMapView(map);
 			setViewPort();
 			addChild(_map.mapContainer);
 		}
 		
+		public function applyEventHandlerToSprites(eventType:String, handler:Function){
+			_map.applyEventHandlerToSprites(eventType, handler);
+		}
+		
+		public function removeEventHandlerFromSprites(eventType:String, handler:Function){
+			_map.removeEventHandlerFromSprites(eventType, handler);
+		}
+		
 		public function destroyMap():void{
-			_map.destroy();
-			removeChild(_map.mapContainer);
+			if(_map != null){
+				_map.destroy();
+				removeChild(_map.mapContainer);
+			}
 		}
 		
 		public function setViewPort():void{
@@ -37,7 +47,7 @@ package com.visuengine.tools.mapeditor.panels{
 			}
 		}
 		
-		public function get map():MapView{
+		public function get map():EditorMapView{
 			return _map;
 		}
 

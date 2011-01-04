@@ -39,6 +39,7 @@ package com.visuengine.tools.mapeditor.managers
 		
 		
 		protected function onMapLoaded(map:VMap):void{
+			_editorLayout.destroyMapView();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
 		}

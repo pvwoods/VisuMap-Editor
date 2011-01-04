@@ -7,6 +7,7 @@ package com.visuengine.components.display {
 	import flash.display.BitmapData;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
+	import flash.geom.Rectangle;
 	
 	// map layers are treated as sprites instead of bitmaps
 	// so that we can support layer sprite effects in the future
@@ -48,11 +49,15 @@ package com.visuengine.components.display {
 				bmp.scaleX = _layerData.sprites[i].scaleX;
 				bmp.scaleY = _layerData.sprites[i].scaleY;
 				bmp.alpha = _layerData.sprites[i].alpha / 100;
-				bmp
+				bmp.smoothing = true;
 				_sprites.push(bmp);
 				addChild(bmp);
 			}
 			
+		}
+		
+		public function get sprites():Vector.<Bitmap>{
+			return _sprites;
 		}
 		
 		public function destroy():void{
