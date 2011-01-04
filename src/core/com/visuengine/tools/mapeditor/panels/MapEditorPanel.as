@@ -24,11 +24,11 @@ package com.visuengine.tools.mapeditor.panels{
 			addChild(_map.mapContainer);
 		}
 		
-		public function applyEventHandlerToSprites(eventType:String, handler:Function){
+		public function applyEventHandlerToSprites(eventType:String, handler:Function):void{
 			_map.applyEventHandlerToSprites(eventType, handler);
 		}
 		
-		public function removeEventHandlerFromSprites(eventType:String, handler:Function){
+		public function removeEventHandlerFromSprites(eventType:String, handler:Function):void{
 			_map.removeEventHandlerFromSprites(eventType, handler);
 		}
 		
