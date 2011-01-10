@@ -1,5 +1,7 @@
 package com.visuengine.tools.mapeditor
 {
+	import flash.ui.Keyboard;
+	
 	public class Config
 	{
 		
@@ -13,6 +15,10 @@ package com.visuengine.tools.mapeditor
 		public static const SCALEY_DOWN_KEY:uint = 83;//s
 		public static const SCALE_UP_KEY:uint = 69;//q
 		public static const SCALE_DOWN_KEY:uint = 81;//e
+		public static const MOVE_MAP_UP_KEY:uint = Keyboard.UP;
+		public static const MOVE_MAP_DOWN_KEY:uint = Keyboard.DOWN;
+		public static const MOVE_MAP_LEFT_KEY:uint = Keyboard.LEFT;
+		public static const MOVE_MAP_RIGHT_KEY:uint = Keyboard.RIGHT;
 		
 
 	}

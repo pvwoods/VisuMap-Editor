@@ -8,6 +8,7 @@ package com.visuengine.tools.mapeditor.panels {
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
+	import flash.events.Event;
 
 	public class MapToolBar extends Panel{
 		
@@ -68,6 +69,14 @@ package com.visuengine.tools.mapeditor.panels {
 		
 		public function get selectedImage():uint{
 			return _imageList.selectedIndex;
+		}
+		
+		public function addImageSelectedHandler(handler:Function):void{
+			_imageList.addEventListener(Event.SELECT, handler);
+		}
+		
+		public function removeImageSelectedHandler(handler:Function):void{
+			_imageList.removeEventListener(Event.SELECT, handler);
 		}
 		
 		public function setPreviewImage(image:BitmapData):void{

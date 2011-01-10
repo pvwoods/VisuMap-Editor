@@ -39,8 +39,8 @@ package com.visuengine.components.display {
 		//place holder function
 		public function moveMap(distance:Point):void{
 			for(var i:uint = 0; i < _layers.length; i++){
-				_layers[i].x += distance.x * (_layers.length - i);
-				_layers[i].y += distance.y * (_layers.length - i);
+				_layers[i].x += distance.x * (i + 1);
+				_layers[i].y += distance.y * (i + 1);
 			}
 		}
 		

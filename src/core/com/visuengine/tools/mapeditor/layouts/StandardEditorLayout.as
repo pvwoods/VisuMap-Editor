@@ -7,6 +7,7 @@ package com.visuengine.tools.mapeditor.layouts
 	import com.visuengine.tools.mapeditor.panels.MapToolBar;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.geom.Point;
 	
 	public class StandardEditorLayout extends BaseLayout{
 		
@@ -26,14 +27,20 @@ package com.visuengine.tools.mapeditor.layouts
 			_mapEditor.buildNewMapView(vmap);
 			for(var i:uint = 0; i < vmap.totalLayers; i++) _toolbar.addLayerToList();
 			for(var q:uint = 0; q < vmap.totalImageData; q++) _toolbar.addImageToList();
-			var sprite:VUSprite = vmap.getImageData(0);
+		}
+		
+		public function setToolbarPreviewImage(sprite:VUSprite):void{
 			sprite.spriteData.position = 0;
-			_toolbar.setPreviewImage(VUSprite.generateBitmapData(vmap.getImageData(0)));
+			_toolbar.setPreviewImage(VUSprite.generateBitmapData(sprite));
 		}
 		
 		public function destroyMapView():void{
 			_mapEditor.destroyMap();
 			_toolbar.resetLists();
+		}
+		
+		public function moveMap(distance:Point):void{
+			_mapEditor.map.moveMap(distance);
 		}
 		
 		protected function buildMapEditorPanel():void{

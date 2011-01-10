@@ -33,7 +33,9 @@ package com.visuengine.tools.mapeditor.panels{
 		}
 		
 		public function destroyMap():void{
-			if(_map != null) _map.destroy();
+			if(_map != null){
+				_map.destroy();
+			}
 		}
 		
 		public function setViewPort():void{

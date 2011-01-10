@@ -11,9 +11,11 @@ package com.visuengine.tools.mapeditor.managers
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
+	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.filters.GlowFilter;
+	import flash.geom.Point;
 	import flash.utils.ByteArray;
 	
 	public class MapEditorFlowManager{
@@ -41,8 +43,8 @@ package com.visuengine.tools.mapeditor.managers
 			_workingState = new MapEditorWorkingState();
 			
 			_editorLayout = new StandardEditorLayout(containerClip);
-			
 			_editorLayout.mapToolBar.build(TOOL_BAR_ACTIONS);
+			_editorLayout.mapToolBar.addImageSelectedHandler(onSelectImage);
 			
 		}
 		
@@ -55,6 +57,7 @@ package com.visuengine.tools.mapeditor.managers
 			destroyMap();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
+			_editorLayout.setToolbarPreviewImage(_workingState.vmap.getImageData(0));
 			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -136,8 +139,16 @@ package com.visuengine.tools.mapeditor.managers
 						_targetSprite.scaleX += .1;
 						_targetSprite.scaleY += .1;
 						break;
-					
+						
 				}
+			}
+			if(_editorLayout.mapEditorPanel.map != null){
+				var distance:Point = new Point();
+				if(event.keyCode == Config.MOVE_MAP_LEFT_KEY) distance.x -= 5;
+				else if(event.keyCode == Config.MOVE_MAP_RIGHT_KEY) distance.x += 5;
+				if(event.keyCode == Config.MOVE_MAP_UP_KEY) distance.y -= 5;
+				else if(event.keyCode == Config.MOVE_MAP_DOWN_KEY) distance.y += 5;
+				if(distance.x != 0 || distance.y != 0) _editorLayout.moveMap(distance);
 			}
 		}
 		
@@ -150,6 +161,14 @@ package com.visuengine.tools.mapeditor.managers
 				_stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			}
+		}
+		
+		protected function onAddImage(event:MouseEvent):void{
+			
+		}
+		
+		protected function onSelectImage(event:Event):void{
+			_editorLayout.setToolbarPreviewImage(_workingState.vmap.getImageData(_editorLayout.mapToolBar.selectedImage));
 		}
 		
 		protected function onAddLayer(event:MouseEvent):void{
