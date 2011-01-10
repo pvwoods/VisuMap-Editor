@@ -2,6 +2,7 @@ package com.visuengine.tools.mapeditor.managers
 {
 	import com.visuengine.structs.media.vmap.MapSpriteData;
 	import com.visuengine.structs.media.vmap.VMap;
+	import com.visuengine.tools.mapeditor.Config;
 	import com.visuengine.tools.mapeditor.actions.requests.VMapFileLoadRequest;
 	import com.visuengine.tools.mapeditor.actions.requests.VMapFileSaveRequest;
 	import com.visuengine.tools.mapeditor.layouts.StandardEditorLayout;
@@ -13,7 +14,6 @@ package com.visuengine.tools.mapeditor.managers
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.filters.GlowFilter;
-	import flash.ui.Keyboard;
 	import flash.utils.ByteArray;
 	
 	public class MapEditorFlowManager{
@@ -85,56 +85,52 @@ package com.visuengine.tools.mapeditor.managers
 			if(_targetSprite != null){
 				switch(event.keyCode){
 					
-					case Keyboard.LEFT:
+					case Config.ROTATE_LEFT_KEY:
 						_targetSprite.rotation -= 2;
 						break;
 						
-					case Keyboard.RIGHT:
+					case Config.ROTATE_RIGHT_KEY:
 						_targetSprite.rotation += 2;
 						break;
 						
-					case Keyboard.UP:
+					case Config.ALPHA_UP_KEY:
 						_targetSprite.alpha = (_targetSprite.alpha + .05);
 						if(_targetSprite.alpha > 1) _targetSprite.alpha = 1;
 						break;
 						
-					case Keyboard.DOWN:
+					case Config.ALPHA_DOWN_KEY:
 						_targetSprite.alpha = (_targetSprite.alpha - .05);
 						if(_targetSprite.alpha < .1) _targetSprite.alpha = .1;
 						break;
+						
 					// scale should eventually be percentage increments
-					// w
-					case 87:
+					
+					case Config.SCALEY_UP_KEY:
 						_targetSprite.scaleY += .1;
 						break;
 						
-					// s
-					case 83:
+					case Config.SCALEY_DOWN_KEY:
 						_targetSprite.scaleY -= .1;
 						if(_targetSprite.scaleY < .1) _targetSprite.scaleY = .1;
 						break;
 					
-					// a
-					case 65:
+					case Config.SCALEX_UP_KEY:
 						_targetSprite.scaleX -= .1;
 						if(_targetSprite.scaleX < .1) _targetSprite.scaleX = .1;
 						break;
-						
-					// w
-					case 68:
+					
+					case Config.SCALEX_UP_KEY:
 						_targetSprite.scaleX += .1;
 						break;
-						
-					// q
-					case 81:
+					
+					case Config.SCALE_DOWN_KEY:
 						_targetSprite.scaleY -= .1;
 						_targetSprite.scaleX -= .1;
 						if(_targetSprite.scaleX < .1) _targetSprite.scaleX = .1;
 						if(_targetSprite.scaleY < .1) _targetSprite.scaleY = .1;
 						break;
-						
-					// e
-					case 69:
+					
+					case Config.SCALE_UP_KEY:
 						_targetSprite.scaleX += .1;
 						_targetSprite.scaleY += .1;
 						break;
