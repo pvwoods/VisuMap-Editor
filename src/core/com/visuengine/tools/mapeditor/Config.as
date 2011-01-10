@@ -4,7 +4,7 @@ package com.visuengine.tools.mapeditor
 	{
 		
 		public static const ROTATE_LEFT_KEY:uint = 37;
-		public static const ROTATE_LEFT_KEY:uint = 39;
+		public static const ROTATE_RIGHT_KEY:uint = 39;
 		public static const ALPHA_UP_KEY:uint = 38;
 		public static const ALPHA_DOWN_KEY:uint = 40;
 		public static const SCALEX_UP_KEY:uint = 68;
