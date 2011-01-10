@@ -2,7 +2,9 @@ package com.visuengine.tools.mapeditor.managers
 {
 	import com.visuengine.structs.media.vmap.MapSpriteData;
 	import com.visuengine.structs.media.vmap.VMap;
+	import com.visuengine.structs.media.vusprite.VUSprite;
 	import com.visuengine.tools.mapeditor.Config;
+	import com.visuengine.tools.mapeditor.actions.requests.ImageFileLoadRequest;
 	import com.visuengine.tools.mapeditor.actions.requests.VMapFileLoadRequest;
 	import com.visuengine.tools.mapeditor.actions.requests.VMapFileSaveRequest;
 	import com.visuengine.tools.mapeditor.layouts.StandardEditorLayout;
@@ -25,7 +27,8 @@ package com.visuengine.tools.mapeditor.managers
 		["Save Current Map", onSaveMapClicked], 
 		["Generate Ugly Map", onGenerateUglyMap],
 		["Add Layer", onAddLayer],
-		["Delete Layer", onDeleteLayer]];
+		["Delete Layer", onDeleteLayer],
+		["Import Image", onLoadImageClicked]];
 		
 		protected var _stage:Stage;
 		
@@ -163,8 +166,13 @@ package com.visuengine.tools.mapeditor.managers
 			}
 		}
 		
-		protected function onAddImage(event:MouseEvent):void{
-			
+		protected function onLoadImageClicked(event:MouseEvent):void{
+			ImageFileLoadRequest.dispatchRequestToLoadFileData(onImageLoaded);
+		}
+		
+		protected function onImageLoaded(image:VUSprite):void{
+			_workingState.vmap.addImageData(image.spriteData, image.width);
+			_editorLayout.mapToolBar.addImageToList();
 		}
 		
 		protected function onSelectImage(event:Event):void{

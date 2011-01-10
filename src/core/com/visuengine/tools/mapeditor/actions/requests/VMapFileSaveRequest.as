@@ -9,7 +9,7 @@ package com.visuengine.tools.mapeditor.actions.requests {
 	
 	public class VMapFileSaveRequest {
 		
-		protected static const VMAP_FILE_LOADED:String = "VMapFileSaveRequest_VMAPSaved";
+		protected static const VMAP_FILE_LOADED:String = "VMapFileSaveRequest_Saved";
 		
 		protected static var _loadRequestsToCallbacks:Dictionary = new Dictionary();
 		
