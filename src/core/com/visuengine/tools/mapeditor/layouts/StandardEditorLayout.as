@@ -1,6 +1,7 @@
 package com.visuengine.tools.mapeditor.layouts
 {
 	import com.visuengine.structs.media.vmap.VMap;
+	import com.visuengine.structs.media.vusprite.VUSprite;
 	import com.visuengine.tools.layouts.BaseLayout;
 	import com.visuengine.tools.mapeditor.panels.MapEditorPanel;
 	import com.visuengine.tools.mapeditor.panels.MapToolBar;
@@ -23,11 +24,16 @@ package com.visuengine.tools.mapeditor.layouts
 		
 		public function buildNewMapView(vmap:VMap):void{
 			_mapEditor.buildNewMapView(vmap);
-			
+			for(var i:uint = 0; i < vmap.totalLayers; i++) _toolbar.addLayerToList();
+			for(var q:uint = 0; q < vmap.totalImageData; q++) _toolbar.addImageToList();
+			var sprite:VUSprite = vmap.getImageData(0);
+			sprite.spriteData.position = 0;
+			_toolbar.setPreviewImage(VUSprite.generateBitmapData(vmap.getImageData(0)));
 		}
 		
 		public function destroyMapView():void{
 			_mapEditor.destroyMap();
+			_toolbar.resetLists();
 		}
 		
 		protected function buildMapEditorPanel():void{

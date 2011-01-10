@@ -18,7 +18,12 @@ package com.visuengine.tools.mapeditor.managers
 	
 	public class MapEditorFlowManager{
 		
-		protected const TOOL_BAR_ACTIONS:Array = [["Load a new Map", onLoadMapClicked], ["Save Current Map", onSaveMapClicked], ["Generate Ugly Map", onGenerateUglyMap]]
+		protected const TOOL_BAR_ACTIONS:Array = 
+		[["Load a new Map", onLoadMapClicked],
+		["Save Current Map", onSaveMapClicked], 
+		["Generate Ugly Map", onGenerateUglyMap],
+		["Add Layer", onAddLayer],
+		["Delete Layer", onDeleteLayer]];
 		
 		protected var _stage:Stage;
 		
@@ -27,10 +32,7 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected var _targetSprite:Sprite;
 		
-		public function MapEditorFlowManager(){
-			
-			
-		}
+		public function MapEditorFlowManager(){}
 		
 		public function init(containerClip:DisplayObjectContainer, stage:Stage):void{
 			
@@ -114,7 +116,7 @@ package com.visuengine.tools.mapeditor.managers
 						if(_targetSprite.scaleY < .1) _targetSprite.scaleY = .1;
 						break;
 					
-					case Config.SCALEX_UP_KEY:
+					case Config.SCALEX_DOWN_KEY:
 						_targetSprite.scaleX -= .1;
 						if(_targetSprite.scaleX < .1) _targetSprite.scaleX = .1;
 						break;
@@ -148,6 +150,14 @@ package com.visuengine.tools.mapeditor.managers
 				_stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			}
+		}
+		
+		protected function onAddLayer(event:MouseEvent):void{
+			_editorLayout.mapToolBar.addLayerToList();
+		}
+		
+		protected function onDeleteLayer(event:MouseEvent):void{
+			//
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{

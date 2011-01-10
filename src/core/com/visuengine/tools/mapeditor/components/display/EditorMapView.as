@@ -20,24 +20,6 @@ package com.visuengine.tools.mapeditor.components.display
 		
 		override public function draw():void{
 			super.draw();
-			/*
-			for(var i:uint = 0; i < _layers.length; i++){
-				(_layers[i] as Sprite).mouseChildren = true;
-				for(var q:uint = 0; q < _layers[i].sprites.length; q++){
-					var border:Sprite = _layers[i].sprites[q] as Sprite;
-					border.graphics.clear();
-					if(_showSpriteGrids){
-						border.graphics.lineStyle(1, 0xFFFF0000);
-						border.graphics.drawRect(0,0,border.width,border.height);
-						border.graphics.moveTo(0,0);
-						border.graphics.lineTo(border.width,border.height);
-						border.graphics.lineTo(0,border.height);
-						border.graphics.lineTo(border.width,0);
-						border.cacheAsBitmap = true;
-					}
-				}
-			}
-			*/
 		}
 		
 		public function applyEventHandlerToAllSprites(eventType:String, handler:Function):void{

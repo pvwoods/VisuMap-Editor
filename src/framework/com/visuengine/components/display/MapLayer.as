@@ -37,8 +37,7 @@ package com.visuengine.components.display {
 			for(var i:uint = 0; i < _layerData.sprites.length; i++){
 				var sprite:VUSprite = _imageData[_layerData.sprites[i].imageDataIndex];
 				sprite.spriteData.position = 0;
-				var bd:BitmapData = new BitmapData(sprite.width, sprite.spriteData.bytesAvailable / (sprite.width * 4));
-				bd.setPixels(bd.rect, sprite.spriteData);
+				var bd:BitmapData = VUSprite.generateBitmapData(sprite);
 				bd.colorTransform(bd.rect, new ColorTransform(_layerData.sprites[i].tintR/255, _layerData.sprites[i].tintG/255,
 															  _layerData.sprites[i].tintB/255,1, _layerData.sprites[i].tintR,
 															  _layerData.sprites[i].tintG, _layerData.sprites[i].tintB, 1));
