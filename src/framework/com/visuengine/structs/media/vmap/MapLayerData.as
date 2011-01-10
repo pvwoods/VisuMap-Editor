@@ -7,6 +7,7 @@ package com.visuengine.structs.media.vmap
 	public class MapLayerData {
 		
 		public var sprites:Vector.<MapSpriteData>;
+		public var recievesInput:Boolean; // not currently supported in file format as it is only used in the editor
 	
 		public function MapLayerData():void{
 			sprites = new Vector.<MapSpriteData>();

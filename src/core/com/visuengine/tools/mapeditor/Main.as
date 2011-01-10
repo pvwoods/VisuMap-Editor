@@ -11,7 +11,7 @@ package com.visuengine.tools.mapeditor{
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			var m:MapEditorFlowManager = new MapEditorFlowManager();
-			m.init(this);
+			m.init(this, stage);
 			
 		}
 		

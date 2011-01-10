@@ -8,6 +8,8 @@ package com.visuengine.tools.mapeditor.managers
 	import com.visuengine.tools.mapeditor.models.MapEditorWorkingState;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
+	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	import flash.utils.ByteArray;
 	
@@ -15,15 +17,21 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected const TOOL_BAR_ACTIONS:Array = [["Load a new Map", onLoadMapClicked], ["Save Current Map", onSaveMapClicked], ["Generate Ugly Map", onGenerateUglyMap]]
 		
+		protected var _stage:Stage;
+		
 		protected var _editorLayout:StandardEditorLayout;
 		protected var _workingState:MapEditorWorkingState;
+		
+		protected var _targetSprite:Sprite;
 		
 		public function MapEditorFlowManager(){
 			
 			
 		}
 		
-		public function init(containerClip:DisplayObjectContainer):void{
+		public function init(containerClip:DisplayObjectContainer, stage:Stage):void{
+			
+			_stage = stage;
 			
 			_workingState = new MapEditorWorkingState();
 			
@@ -39,9 +47,11 @@ package com.visuengine.tools.mapeditor.managers
 		
 		
 		protected function onMapLoaded(map:VMap):void{
-			_editorLayout.destroyMapView();
+			destroyMap();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
+			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
+			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 		}
 		
 		protected function onSaveMapClicked(event:MouseEvent):void{
@@ -52,11 +62,31 @@ package com.visuengine.tools.mapeditor.managers
 			//
 		}
 		
+		protected function onClickSprite(event:MouseEvent):void{
+			var sp:Sprite = (event.currentTarget as Sprite);
+			_targetSprite = sp;
+			_targetSprite.startDrag();
+		}
+		
+		protected function onMouseUp(event:MouseEvent):void{
+			if(_targetSprite != null){
+				_targetSprite.stopDrag();
+				_targetSprite = null;
+			}
+		}
+		
+		protected function destroyMap():void{
+			if(_editorLayout.mapEditorPanel.map != null){
+				_editorLayout.mapEditorPanel.removeEventHandlerFromAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
+				_editorLayout.destroyMapView();
+				_workingState.destroy();
+				_workingState = new MapEditorWorkingState();
+			}
+		}
+		
 		protected function onGenerateUglyMap(event:MouseEvent):void{
 			
-			_workingState.destroy();
-			
-			_workingState = new MapEditorWorkingState();
+			destroyMap();
 			
 			for(var i:uint = 0; i < 20; i++){
 				

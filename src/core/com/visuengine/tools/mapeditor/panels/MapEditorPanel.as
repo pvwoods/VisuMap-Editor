@@ -24,19 +24,16 @@ package com.visuengine.tools.mapeditor.panels{
 			addChild(_map.mapContainer);
 		}
 		
-		public function applyEventHandlerToSprites(eventType:String, handler:Function):void{
-			_map.applyEventHandlerToSprites(eventType, handler);
+		public function applyEventHandlerToAllSprites(eventType:String, handler:Function):void{
+			_map.applyEventHandlerToAllSprites(eventType, handler);
 		}
 		
-		public function removeEventHandlerFromSprites(eventType:String, handler:Function):void{
-			_map.removeEventHandlerFromSprites(eventType, handler);
+		public function removeEventHandlerFromAllSprites(eventType:String, handler:Function):void{
+			_map.removeEventHandlerFromAllSprites(eventType, handler);
 		}
 		
 		public function destroyMap():void{
-			if(_map != null){
-				_map.destroy();
-				removeChild(_map.mapContainer);
-			}
+			if(_map != null) _map.destroy();
 		}
 		
 		public function setViewPort():void{

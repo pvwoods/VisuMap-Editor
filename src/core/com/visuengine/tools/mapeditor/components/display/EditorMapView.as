@@ -4,7 +4,7 @@ package com.visuengine.tools.mapeditor.components.display
 	import com.visuengine.components.display.MapView;
 	import com.visuengine.structs.media.vmap.VMap;
 	
-	import flash.display.Bitmap;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 
 	public class EditorMapView extends MapView {
@@ -13,43 +13,46 @@ package com.visuengine.tools.mapeditor.components.display
 		
 		public function EditorMapView(vmap:VMap){
 			_showSpriteGrids = true;
+			for(var i:uint = 0; i < vmap.totalLayers; i++) vmap.getLayerByIndex(i).recievesInput = true;
 			super(vmap);
+			_container.mouseChildren = true;
 		}
 		
 		override public function draw():void{
 			super.draw();
-			
-			var border:Sprite = new Sprite();
-			if(_showSpriteGrids){
-				for(var i:uint = 0; i < _layers.length; i++){
-					for(var q:uint = 0; q < _layers[i].sprites.length; q++){
-						var sprite:Bitmap = _layers[i].sprites[q];
-						border.graphics.clear();
+			/*
+			for(var i:uint = 0; i < _layers.length; i++){
+				(_layers[i] as Sprite).mouseChildren = true;
+				for(var q:uint = 0; q < _layers[i].sprites.length; q++){
+					var border:Sprite = _layers[i].sprites[q] as Sprite;
+					border.graphics.clear();
+					if(_showSpriteGrids){
 						border.graphics.lineStyle(1, 0xFFFF0000);
-						border.graphics.drawRect(0,0,sprite.bitmapData.width-1,sprite.bitmapData.height-1);
+						border.graphics.drawRect(0,0,border.width,border.height);
 						border.graphics.moveTo(0,0);
-						border.graphics.lineTo(sprite.bitmapData.width,sprite.bitmapData.height);
-						border.graphics.lineTo(0,sprite.bitmapData.height);
-						border.graphics.lineTo(sprite.bitmapData.width,0);
-						sprite.bitmapData.draw(border);
+						border.graphics.lineTo(border.width,border.height);
+						border.graphics.lineTo(0,border.height);
+						border.graphics.lineTo(border.width,0);
+						border.cacheAsBitmap = true;
 					}
 				}
 			}
+			*/
 		}
 		
-		public function applyEventHandlerToSprites(eventType:String, handler:Function):void{
+		public function applyEventHandlerToAllSprites(eventType:String, handler:Function):void{
 			for(var i:uint = 0; i < _layers.length; i++){
 				for(var q:uint = 0; q < _layers[i].sprites.length; q++){
-					var sprite:Bitmap = _layers[i].sprites[q];
+					var sprite:Sprite = _layers[i].sprites[q] as Sprite;
 					sprite.addEventListener(eventType, handler);
 				}
 			}
 		}
 		
-		public function removeEventHandlerFromSprites(eventType:String, handler:Function):void{
+		public function removeEventHandlerFromAllSprites(eventType:String, handler:Function):void{
 			for(var i:uint = 0; i < _layers.length; i++){
 				for(var q:uint = 0; q < _layers[i].sprites.length; q++){
-					var sprite:Bitmap = _layers[i].sprites[q];
+					var sprite:Sprite = _layers[i].sprites[q] as Sprite;
 					sprite.removeEventListener(eventType, handler);
 				}
 			}

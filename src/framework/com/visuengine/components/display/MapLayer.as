@@ -5,9 +5,9 @@ package com.visuengine.components.display {
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.ColorTransform;
-	import flash.geom.Rectangle;
 	
 	// map layers are treated as sprites instead of bitmaps
 	// so that we can support layer sprite effects in the future
@@ -15,7 +15,7 @@ package com.visuengine.components.display {
 		
 		protected var _layerData:MapLayerData;
 		protected var _imageData:Vector.<VUSprite>;
-		protected var _sprites:Vector.<Bitmap>;
+		protected var _sprites:Vector.<DisplayObject>;
 		
 		
 		public function MapLayer(layerData:MapLayerData, imageData:Vector.<VUSprite>) {
@@ -26,7 +26,7 @@ package com.visuengine.components.display {
 			
 			_imageData = imageData;
 			
-			_sprites = new Vector.<Bitmap>();
+			_sprites = new Vector.<DisplayObject>();
 			
 			buildLayer();
 			
@@ -43,20 +43,34 @@ package com.visuengine.components.display {
 															  _layerData.sprites[i].tintB/255,1, _layerData.sprites[i].tintR,
 															  _layerData.sprites[i].tintG, _layerData.sprites[i].tintB, 1));
 				var bmp:Bitmap = new Bitmap(bd);
-				bmp.x = _layerData.sprites[i].x
-				bmp.y = _layerData.sprites[i].y
-				bmp.rotation = _layerData.sprites[i].rot;
-				bmp.scaleX = _layerData.sprites[i].scaleX;
-				bmp.scaleY = _layerData.sprites[i].scaleY;
-				bmp.alpha = _layerData.sprites[i].alpha / 100;
 				bmp.smoothing = true;
-				_sprites.push(bmp);
-				addChild(bmp);
+				
+				if(_layerData.recievesInput){
+					var iCon:Sprite = new Sprite();
+					iCon.addChild(bmp);
+					iCon.x = _layerData.sprites[i].x
+					iCon.y = _layerData.sprites[i].y
+					iCon.rotation = _layerData.sprites[i].rot;
+					iCon.scaleX = _layerData.sprites[i].scaleX;
+					iCon.scaleY = _layerData.sprites[i].scaleY;
+					iCon.alpha = _layerData.sprites[i].alpha / 100;
+					_sprites.push(iCon);
+					addChild(iCon);
+				}else{
+					bmp.x = _layerData.sprites[i].x
+					bmp.y = _layerData.sprites[i].y
+					bmp.rotation = _layerData.sprites[i].rot;
+					bmp.scaleX = _layerData.sprites[i].scaleX;
+					bmp.scaleY = _layerData.sprites[i].scaleY;
+					bmp.alpha = _layerData.sprites[i].alpha / 100;
+					_sprites.push(bmp);
+					addChild(bmp);
+				}
 			}
 			
 		}
 		
-		public function get sprites():Vector.<Bitmap>{
+		public function get sprites():Vector.<DisplayObject>{
 			return _sprites;
 		}
 		
