@@ -10,7 +10,10 @@ package com.visuengine.tools.mapeditor.managers
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.filters.GlowFilter;
+	import flash.ui.Keyboard;
 	import flash.utils.ByteArray;
 	
 	public class MapEditorFlowManager{
@@ -52,6 +55,7 @@ package com.visuengine.tools.mapeditor.managers
 			_editorLayout.buildNewMapView(_workingState.vmap);
 			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 		
 		protected function onSaveMapClicked(event:MouseEvent):void{
@@ -64,14 +68,78 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onClickSprite(event:MouseEvent):void{
 			var sp:Sprite = (event.currentTarget as Sprite);
+			if(_targetSprite != null) _targetSprite.filters = [];
 			_targetSprite = sp;
+			var selectedFilter:GlowFilter = new GlowFilter(0xFFFF0000, 1, 5, 5, 10, 1, true);
+			_targetSprite.filters = [selectedFilter];
 			_targetSprite.startDrag();
 		}
 		
 		protected function onMouseUp(event:MouseEvent):void{
 			if(_targetSprite != null){
-				_targetSprite.stopDrag();
-				_targetSprite = null;
+				_targetSprite.stopDrag();	
+			}
+		}
+		
+		protected function onKeyDown(event:KeyboardEvent):void{
+			if(_targetSprite != null){
+				switch(event.keyCode){
+					
+					case Keyboard.LEFT:
+						_targetSprite.rotation -= 2;
+						break;
+						
+					case Keyboard.RIGHT:
+						_targetSprite.rotation += 2;
+						break;
+						
+					case Keyboard.UP:
+						_targetSprite.alpha = (_targetSprite.alpha + .05);
+						if(_targetSprite.alpha > 1) _targetSprite.alpha = 1;
+						break;
+						
+					case Keyboard.DOWN:
+						_targetSprite.alpha = (_targetSprite.alpha - .05);
+						if(_targetSprite.alpha < .1) _targetSprite.alpha = .1;
+						break;
+					// scale should eventually be percentage increments
+					// w
+					case 87:
+						_targetSprite.scaleY += .1;
+						break;
+						
+					// s
+					case 83:
+						_targetSprite.scaleY -= .1;
+						if(_targetSprite.scaleY < .1) _targetSprite.scaleY = .1;
+						break;
+					
+					// a
+					case 65:
+						_targetSprite.scaleX -= .1;
+						if(_targetSprite.scaleX < .1) _targetSprite.scaleX = .1;
+						break;
+						
+					// w
+					case 68:
+						_targetSprite.scaleX += .1;
+						break;
+						
+					// q
+					case 81:
+						_targetSprite.scaleY -= .1;
+						_targetSprite.scaleX -= .1;
+						if(_targetSprite.scaleX < .1) _targetSprite.scaleX = .1;
+						if(_targetSprite.scaleY < .1) _targetSprite.scaleY = .1;
+						break;
+						
+					// e
+					case 69:
+						_targetSprite.scaleX += .1;
+						_targetSprite.scaleY += .1;
+						break;
+					
+				}
 			}
 		}
 		
@@ -81,6 +149,8 @@ package com.visuengine.tools.mapeditor.managers
 				_editorLayout.destroyMapView();
 				_workingState.destroy();
 				_workingState = new MapEditorWorkingState();
+				_stage.removeEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+				_stage.removeEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			}
 		}
 		
