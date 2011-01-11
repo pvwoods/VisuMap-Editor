@@ -22,10 +22,12 @@ package com.visuengine.components.display {
 		}
 		
 		public function draw():void{
-			for(var i:uint = 0; i < _vmap.totalLayers; i++){
-				_layers.push(new MapLayer(_vmap.getLayerByIndex(i), _vmap.imageData));
-				_container.addChild(_layers[i]);
-			}
+			for(var i:uint = 0; i < _vmap.totalLayers; i++) addLayer(i);
+		}
+		
+		public function addLayer(layerIndex:uint):void{
+			_layers.push(new MapLayer(_vmap.getLayerByIndex(layerIndex), _vmap.imageData));
+			_container.addChild(_layers[layerIndex]);
 		}
 		
 		public function clearMap():void{

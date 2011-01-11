@@ -134,11 +134,11 @@ package com.visuengine.structs.media.vmap {
 		}
 		
 		public function get totalLayers():uint{
-			return _layers.length;
+			return (_layers == null) ? 0:_layers.length;
 		}
 		
 		public function get totalImageData():uint{
-			return _spriteImageData.length;
+			return (_spriteImageData == null) ? 0:_spriteImageData.length;
 		}
 		
 		public function get imageData():Vector.<VUSprite>{

@@ -7,7 +7,6 @@ package com.visuengine.components.display {
 	import flash.display.BitmapData;
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
-	import flash.geom.ColorTransform;
 	
 	// map layers are treated as sprites instead of bitmaps
 	// so that we can support layer sprite effects in the future
@@ -32,15 +31,19 @@ package com.visuengine.components.display {
 			
 		}
 		
-		public function buildLayer():void{
+		public function buildLayer(update:Boolean=false):void{
 			
-			for(var i:uint = 0; i < _layerData.sprites.length; i++){
+			var offset:uint = update ? _sprites.length:0;
+			
+			for(var i:uint = offset; i < _layerData.sprites.length; i++){
 				var sprite:VUSprite = _imageData[_layerData.sprites[i].imageDataIndex];
 				sprite.spriteData.position = 0;
 				var bd:BitmapData = VUSprite.generateBitmapData(sprite);
+				/*
 				bd.colorTransform(bd.rect, new ColorTransform(_layerData.sprites[i].tintR/255, _layerData.sprites[i].tintG/255,
 															  _layerData.sprites[i].tintB/255,1, _layerData.sprites[i].tintR,
 															  _layerData.sprites[i].tintG, _layerData.sprites[i].tintB, 1));
+				*/
 				var bmp:Bitmap = new Bitmap(bd);
 				bmp.smoothing = true;
 				

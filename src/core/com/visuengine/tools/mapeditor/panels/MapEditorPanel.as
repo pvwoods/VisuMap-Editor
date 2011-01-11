@@ -24,12 +24,20 @@ package com.visuengine.tools.mapeditor.panels{
 			addChild(_map.mapContainer);
 		}
 		
+		public function updateLayer(layerIndex:uint):void{
+			_map.updateLayer(layerIndex);
+		}
+		
 		public function applyEventHandlerToAllSprites(eventType:String, handler:Function):void{
 			_map.applyEventHandlerToAllSprites(eventType, handler);
 		}
 		
 		public function removeEventHandlerFromAllSprites(eventType:String, handler:Function):void{
 			_map.removeEventHandlerFromAllSprites(eventType, handler);
+		}
+		
+		public function applyEventHandlerToSprite(layerIndex:uint, spriteIndex:uint, eventType:String, handler:Function):void{
+			_map.applyEventHandlerToSprite(layerIndex, spriteIndex, eventType, handler);
 		}
 		
 		public function destroyMap():void{

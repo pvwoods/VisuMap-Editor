@@ -85,9 +85,10 @@ package com.visuengine.tools.mapeditor.panels {
 			var targetWidth:uint = this.width - (ITEM_SPACER * 2);
 			var tscale:Number;
 			if(_previewImage.width > targetWidth || _previewImage.height > targetWidth){
-				tscale = 1 / (targetWidth/((_previewImage.width > _previewImage.height) ? _previewImage.width:_previewImage.height));
+				tscale = (targetWidth/((_previewImage.width > _previewImage.height) ? _previewImage.width:_previewImage.height));
 				_previewImage.scaleX = _previewImage.scaleY = tscale;
 			}
+			_previewImage.smoothing = true;
 			_previewImageContainer.addChild(_previewImage);
 		}
 	}

@@ -49,6 +49,10 @@ package com.visuengine.tools.mapeditor.managers
 			_editorLayout.mapToolBar.build(TOOL_BAR_ACTIONS);
 			_editorLayout.mapToolBar.addImageSelectedHandler(onSelectImage);
 			
+			var map:VMap = new VMap();
+			map.addLayer();
+			
+			onMapLoaded(map);			
 		}
 		
 		protected function onLoadMapClicked(event:MouseEvent):void{
@@ -60,13 +64,14 @@ package com.visuengine.tools.mapeditor.managers
 			destroyMap();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
-			_editorLayout.setToolbarPreviewImage(_workingState.vmap.getImageData(0));
 			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
+			_stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 		
 		protected function onSaveMapClicked(event:MouseEvent):void{
+			_workingState.updateVMap(_editorLayout.mapEditorPanel.map);
 			VMapFileSaveRequest.dispatchRequestToSaveFileData(_workingState.vmap.generateByteArray(), onMapSaved);
 		}
 		
@@ -85,7 +90,21 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onMouseUp(event:MouseEvent):void{
 			if(_targetSprite != null){
-				_targetSprite.stopDrag();	
+				_targetSprite.stopDrag();
+			}
+		}
+		
+		protected function onMouseDown(event:MouseEvent):void{
+			if(event.shiftKey && _workingState.vmap.totalImageData >= 1 && _workingState.vmap.totalLayers >= 1){
+				var sprite:MapSpriteData = new MapSpriteData();
+				sprite.imageDataIndex = _editorLayout.mapToolBar.selectedImage;
+				sprite.alpha = 100;
+				sprite.scaleX = sprite.scaleY = 1;
+				sprite.x = 0;
+				sprite.y = 0;
+				var spriteIndex:uint = _workingState.vmap.addSprite(sprite, _editorLayout.mapToolBar.selectedLayer) - 1;
+				_editorLayout.mapEditorPanel.updateLayer(_editorLayout.mapToolBar.selectedLayer);
+				_editorLayout.mapEditorPanel.applyEventHandlerToSprite(_editorLayout.mapToolBar.selectedLayer, spriteIndex, MouseEvent.MOUSE_DOWN, onClickSprite);
 			}
 		}
 		
@@ -180,7 +199,9 @@ package com.visuengine.tools.mapeditor.managers
 		}
 		
 		protected function onAddLayer(event:MouseEvent):void{
+			var layerIndex:uint = _workingState.vmap.addLayer() - 1;
 			_editorLayout.mapToolBar.addLayerToList();
+			_editorLayout.addLayerToMap(layerIndex);
 		}
 		
 		protected function onDeleteLayer(event:MouseEvent):void{

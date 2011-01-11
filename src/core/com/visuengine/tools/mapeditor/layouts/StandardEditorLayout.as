@@ -43,6 +43,10 @@ package com.visuengine.tools.mapeditor.layouts
 			_mapEditor.map.moveMap(distance);
 		}
 		
+		public function addLayerToMap(layerIndex:uint):void{
+			_mapEditor.map.addLayer(layerIndex);
+		}
+		
 		protected function buildMapEditorPanel():void{
 			_mapEditor = new MapEditorPanel(_container);
 			
