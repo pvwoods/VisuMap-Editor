@@ -59,6 +59,10 @@ package com.visuengine.tools.mapeditor.panels {
 			_layerList.addItem("Layer " + _layerList.items.length);
 		}
 		
+		public function removeLayerFromList(index:uint):void{
+			_layerList.removeItem("Layer " + index.toString());
+		}
+		
 		public function get selectedLayer():uint{
 			return _layerList.selectedIndex;
 		}

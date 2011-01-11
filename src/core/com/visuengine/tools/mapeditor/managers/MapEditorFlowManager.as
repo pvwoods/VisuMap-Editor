@@ -130,6 +130,12 @@ package com.visuengine.tools.mapeditor.managers
 						if(_targetSprite.alpha < .1) _targetSprite.alpha = .1;
 						break;
 						
+					case Config.REMOVE_KEY:
+						var result:Vector.<uint> = _editorLayout.mapEditorPanel.getIndexInfoForSprite(_targetSprite);
+						_workingState.removeSprite(result[0], result[1]);
+						_editorLayout.mapEditorPanel.removeSprite(result[0], result[1]);
+						break;
+						
 					// scale should eventually be percentage increments
 					
 					case Config.SCALEY_UP_KEY:
@@ -205,7 +211,9 @@ package com.visuengine.tools.mapeditor.managers
 		}
 		
 		protected function onDeleteLayer(event:MouseEvent):void{
-			//
+			_workingState.removeLayer(_editorLayout.mapToolBar.selectedLayer);
+			_editorLayout.mapEditorPanel.removeLayer(_editorLayout.mapToolBar.selectedLayer);
+			_editorLayout.mapToolBar.removeLayerFromList(_editorLayout.mapToolBar.selectedLayer);
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{

@@ -15,6 +15,14 @@ package com.visuengine.tools.mapeditor.models
 			vmap = new VMap();
 		}
 		
+		public function removeSprite(layerIndex:uint, spriteIndex:uint):void{
+			vmap.removeSprite(layerIndex, spriteIndex);
+		}
+		
+		public function removeLayer(layerIndex:uint):void{
+			vmap.removeLayer(layerIndex);
+		}
+		
 		public function updateVMap(map:EditorMapView):void{
 			for(var i:uint = 0; i < map.layers.length; i++){
 				var mld:MapLayerData = vmap.getLayerByIndex(i);

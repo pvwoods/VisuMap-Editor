@@ -5,6 +5,7 @@ package com.visuengine.tools.mapeditor.panels{
 	import com.visuengine.tools.mapeditor.components.display.EditorMapView;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 	
 	public class MapEditorPanel extends Panel{
@@ -38,6 +39,18 @@ package com.visuengine.tools.mapeditor.panels{
 		
 		public function applyEventHandlerToSprite(layerIndex:uint, spriteIndex:uint, eventType:String, handler:Function):void{
 			_map.applyEventHandlerToSprite(layerIndex, spriteIndex, eventType, handler);
+		}
+		
+		public function getIndexInfoForSprite(targetSprite:Sprite):Vector.<uint>{
+			return _map.getIndexInfoForSprite(targetSprite);
+		}
+		
+		public function removeSprite(layerIndex:uint, spriteIndex:uint):void{
+			_map.removeSprite(layerIndex, spriteIndex);
+		}
+		
+		public function removeLayer(layerIndex:uint):void{
+			_map.removeLayer(layerIndex);
 		}
 		
 		public function destroyMap():void{

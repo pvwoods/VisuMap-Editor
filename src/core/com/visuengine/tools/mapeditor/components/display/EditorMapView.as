@@ -43,6 +43,23 @@ package com.visuengine.tools.mapeditor.components.display
 			sprite.removeEventListener(eventType, handler);
 		}
 		
+		public function getIndexInfoForSprite(targetSprite:Sprite):Vector.<uint>{
+			var result:Vector.<uint> = new Vector.<uint>();
+			result.push(_layers.indexOf(targetSprite.parent as Sprite))
+			result.push((_layers[result[0]] as MapLayer).sprites.indexOf(targetSprite));
+			return result;
+		}
+		
+		public function removeSprite(layerIndex:uint, spriteIndex:uint):void{
+			_layers[layerIndex].removeChild(_layers[layerIndex].sprites[spriteIndex]);
+			_layers[layerIndex].sprites.splice(spriteIndex, 1);
+		}
+		
+		public function removeLayer(layerIndex:uint):void{
+			_container.removeChild(_layers[layerIndex]);
+			_layers.splice(layerIndex, 1);
+		}
+		
 		public function updateLayer(layerIndex:uint):void{
 			_layers[layerIndex].buildLayer(true);
 		}

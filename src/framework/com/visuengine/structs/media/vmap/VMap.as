@@ -34,6 +34,10 @@ package com.visuengine.structs.media.vmap {
 				return _layers.push(layer == null ? new MapLayerData():layer);
 		}
 		
+		public function removeLayer(layerIndex:uint):void{
+			_layers.splice(layerIndex, 1);
+		}
+		
 		public function getLayerByIndex(index:uint):MapLayerData{
 			return _layers[index];
 		}
@@ -43,6 +47,10 @@ package com.visuengine.structs.media.vmap {
 			if(layerIndex >= _layers.length || layerIndex < 0) throw new Error("Layer Index out of Bounds");
 			
 			return _layers[layerIndex].sprites.push(sprite);
+		}
+		
+		public function removeSprite(layerIndex:uint, spriteIndex:uint):void{
+			_layers[layerIndex].sprites.splice(spriteIndex, 1);
 		}
 		
 		public function addImageData(image:ByteArray, width:uint):uint{
