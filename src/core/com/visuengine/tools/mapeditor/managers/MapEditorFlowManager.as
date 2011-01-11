@@ -205,7 +205,7 @@ package com.visuengine.tools.mapeditor.managers
 		}
 		
 		protected function onAddLayer(event:MouseEvent):void{
-			var layerIndex:uint = _workingState.vmap.addLayer() - 1;
+			var layerIndex:uint = _workingState.addLayer();
 			_editorLayout.mapToolBar.addLayerToList();
 			_editorLayout.addLayerToMap(layerIndex);
 		}

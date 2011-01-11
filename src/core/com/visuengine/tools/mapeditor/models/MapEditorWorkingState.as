@@ -19,6 +19,12 @@ package com.visuengine.tools.mapeditor.models
 			vmap.removeSprite(layerIndex, spriteIndex);
 		}
 		
+		public function addLayer():uint{
+			var layerIndex:uint = vmap.addLayer() - 1;
+			vmap.getLayerByIndex(layerIndex).recievesInput = true;
+			return layerIndex;
+		}
+		
 		public function removeLayer(layerIndex:uint):void{
 			vmap.removeLayer(layerIndex);
 		}
