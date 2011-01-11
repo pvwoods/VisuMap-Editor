@@ -1,3 +1,5 @@
+The code is still very much in flux and not well commented at the moment.
+
 Before building, the following src directories will need to be added to src/thirdparty (you could also add swc lib includes to the ant build file):
 
 - minimal comps by bit101 (http://www.minimalcomps.com)
@@ -10,3 +12,18 @@ $ ant test
 to build the air executable:
 
 $ ant
+
+----------------------------------------
+
+Controls:
+
+Arrow Keys 	:: scroll the map camera
+A or D 		:: Increase or Decrease ScaleX
+W or S 		:: Increase or Decrease ScaleY
+E or Q 		:: Increase or Decrease ScaleY and ScaleX
+Z or X 		:: Rotate Left or Right
+C or V 		:: Increase or Decrease Alpha
+
+Click on an object to select it.
+
+Shift + Click to place new object (must have image and layer selected or for now an error will be thrown)
