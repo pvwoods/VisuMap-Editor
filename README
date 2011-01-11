@@ -23,6 +23,7 @@ W or S 		:: Increase or Decrease ScaleY
 E or Q 		:: Increase or Decrease ScaleY and ScaleX
 Z or X 		:: Rotate Left or Right
 C or V 		:: Increase or Decrease Alpha
+R			:: Remove selected sprite
 
 Click on an object to select it.
 
