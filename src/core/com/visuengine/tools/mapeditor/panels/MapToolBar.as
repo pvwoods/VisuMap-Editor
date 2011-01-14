@@ -83,6 +83,11 @@ package com.visuengine.tools.mapeditor.panels {
 			_imageList.removeEventListener(Event.SELECT, handler);
 		}
 		
+		public function resize(w:uint, h:uint):void {
+			// we will ignore the height for now
+			this.height = h;
+		}
+		
 		public function setPreviewImage(image:BitmapData):void{
 			if(_previewImage != null) _previewImageContainer.removeChild(_previewImage);
 			_previewImage = new Bitmap(image);

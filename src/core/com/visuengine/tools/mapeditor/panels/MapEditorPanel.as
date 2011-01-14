@@ -59,6 +59,11 @@ package com.visuengine.tools.mapeditor.panels{
 			}
 		}
 		
+		public function resize(w:uint, h:uint):void {
+			this.width = w;
+			this.height = h;
+		}
+		
 		public function setViewPort():void{
 			if(!_viewPortSet){
 				this.scrollRect = new Rectangle(0, 0, this.width, this.height);

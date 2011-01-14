@@ -82,7 +82,7 @@
 	</target>
 	
 	<target name="test" depends="compile">
-		 <exec dir="${basedir}" executable="${FLEX_HOME}\bin\adl" failonerror="true">
+		 <exec dir="${basedir}" executable="${FLEX_HOME}\bin\adl.exe" failonerror="true">
 		 	<arg value="application.xml"/>
 		 </exec>
 	</target>

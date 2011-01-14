@@ -47,6 +47,11 @@ package com.visuengine.tools.mapeditor.layouts
 			_mapEditor.map.addLayer(layerIndex);
 		}
 		
+		public function resizeForWindow(w:uint, h:uint):void {
+			_mapEditor.resize(w, h - 10);
+			_toolbar.resize((w - _mapEditor.width) - 10, h - 10);
+		}
+		
 		protected function buildMapEditorPanel():void{
 			_mapEditor = new MapEditorPanel(_container);
 			

@@ -49,10 +49,13 @@ package com.visuengine.tools.mapeditor.managers
 			_editorLayout.mapToolBar.build(TOOL_BAR_ACTIONS);
 			_editorLayout.mapToolBar.addImageSelectedHandler(onSelectImage);
 			
+			stage.addEventListener(Event.RESIZE, onWindowResize);
+			
 			var map:VMap = new VMap();
 			map.addLayer();
 			
-			onMapLoaded(map);			
+			onMapLoaded(map);
+			
 		}
 		
 		protected function onLoadMapClicked(event:MouseEvent):void{
@@ -214,6 +217,10 @@ package com.visuengine.tools.mapeditor.managers
 			_workingState.removeLayer(_editorLayout.mapToolBar.selectedLayer);
 			_editorLayout.mapEditorPanel.removeLayer(_editorLayout.mapToolBar.selectedLayer);
 			_editorLayout.mapToolBar.removeLayerFromList(_editorLayout.mapToolBar.selectedLayer);
+		}
+		
+		protected function onWindowResize(event:Event):void {
+			_editorLayout.resizeForWindow(_stage.stageWidth, _stage.stageHeight);
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{
