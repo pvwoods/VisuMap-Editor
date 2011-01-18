@@ -66,7 +66,6 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onMapLoaded(map:VMap):void{
 			invalidate(map);
-			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			_stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -240,6 +239,7 @@ package com.visuengine.tools.mapeditor.managers
 			destroyMap();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
+			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{
