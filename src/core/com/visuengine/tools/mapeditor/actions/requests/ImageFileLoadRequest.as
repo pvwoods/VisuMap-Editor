@@ -36,7 +36,7 @@ package com.visuengine.tools.mapeditor.actions.requests
 		}
 		
 		public function requestLoadImageFile():void{
-			fr.browse([new FileFilter("Image Files", "*.png")]);
+			fr.browse([new FileFilter("Image Files", "*.png;*.jpg;*.jpeg;*.gif")]);
 			fr.addEventListener(Event.SELECT, onFileSelected);
 		}
 		

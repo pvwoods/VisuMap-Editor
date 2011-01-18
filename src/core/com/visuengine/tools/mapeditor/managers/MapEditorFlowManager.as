@@ -28,7 +28,8 @@ package com.visuengine.tools.mapeditor.managers
 		["Generate Ugly Map", onGenerateUglyMap],
 		["Add Layer", onAddLayer],
 		["Delete Layer", onDeleteLayer],
-		["Import Image", onLoadImageClicked]];
+		["Import Image", onLoadImageClicked],
+		["Swap Image", onReplaceImageClicked]];
 		
 		protected var _stage:Stage;
 		
@@ -64,9 +65,7 @@ package com.visuengine.tools.mapeditor.managers
 		
 		
 		protected function onMapLoaded(map:VMap):void{
-			destroyMap();
-			_workingState.vmap = map;
-			_editorLayout.buildNewMapView(_workingState.vmap);
+			invalidate(map);
 			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			_stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
@@ -198,9 +197,23 @@ package com.visuengine.tools.mapeditor.managers
 			ImageFileLoadRequest.dispatchRequestToLoadFileData(onImageLoaded);
 		}
 		
+		protected function onReplaceImageClicked(event:MouseEvent):void {
+			if(_editorLayout.mapToolBar.selectedImage != -1){
+				ImageFileLoadRequest.dispatchRequestToLoadFileData(onReplacementImageLoaded);
+			}
+		}
+		
 		protected function onImageLoaded(image:VUSprite):void{
 			_workingState.vmap.addImageData(image.spriteData, image.width);
 			_editorLayout.mapToolBar.addImageToList();
+		}
+		
+		protected function onReplacementImageLoaded(image:VUSprite):void{
+			if (_editorLayout.mapToolBar.selectedImage != -1) {
+				_workingState.replaceImageData(image, _editorLayout.mapToolBar.selectedImage);
+				invalidate(_workingState.vmap);
+				onSelectImage(null);
+			}
 		}
 		
 		protected function onSelectImage(event:Event):void{
@@ -221,6 +234,12 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onWindowResize(event:Event):void {
 			_editorLayout.resizeForWindow(_stage.stageWidth, _stage.stageHeight);
+		}
+		
+		protected function invalidate(map:VMap):void {
+			destroyMap();
+			_workingState.vmap = map;
+			_editorLayout.buildNewMapView(_workingState.vmap);
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{

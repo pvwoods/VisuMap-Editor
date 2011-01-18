@@ -61,6 +61,11 @@ package com.visuengine.structs.media.vmap {
 			return _spriteImageData[index];
 		}
 		
+		public function replaceImageData(image:VUSprite, index:uint):void {
+			_spriteImageData[index].spriteData = image.spriteData;
+			_spriteImageData[index].width = image.width;
+		}
+		
 		// once this gets solidified a bit more, it could use a refactor
 		public function generateByteArray():ByteArray{
 			

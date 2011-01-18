@@ -3,6 +3,7 @@ package com.visuengine.tools.mapeditor.models
 	import com.visuengine.structs.media.vmap.MapLayerData;
 	import com.visuengine.structs.media.vmap.MapSpriteData;
 	import com.visuengine.structs.media.vmap.VMap;
+	import com.visuengine.structs.media.vusprite.VUSprite;
 	import com.visuengine.tools.mapeditor.components.display.EditorMapView;
 	
 	import flash.display.Sprite;
@@ -27,6 +28,10 @@ package com.visuengine.tools.mapeditor.models
 		
 		public function removeLayer(layerIndex:uint):void{
 			vmap.removeLayer(layerIndex);
+		}
+		
+		public function replaceImageData(image:VUSprite, index:uint):void {
+			vmap.replaceImageData(image, index);
 		}
 		
 		public function updateVMap(map:EditorMapView):void{
