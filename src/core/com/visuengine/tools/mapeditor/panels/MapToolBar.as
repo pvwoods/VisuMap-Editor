@@ -71,7 +71,7 @@ package com.visuengine.tools.mapeditor.panels {
 			_imageList.addItem("Image " + _imageList.items.length);
 		}
 		
-		public function get selectedImage():uint{
+		public function get selectedImage():int{
 			return _imageList.selectedIndex;
 		}
 		
