@@ -65,7 +65,10 @@ package com.visuengine.tools.mapeditor.managers
 		
 		
 		protected function onMapLoaded(map:VMap):void{
-			invalidate(map);
+			destroyMap();
+			_workingState.vmap = map;
+			_editorLayout.buildNewMapView(_workingState.vmap);
+			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 			_stage.addEventListener(MouseEvent.MOUSE_UP, onMouseUp);
 			_stage.addEventListener(MouseEvent.MOUSE_DOWN, onMouseDown);
 			_stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
@@ -210,7 +213,7 @@ package com.visuengine.tools.mapeditor.managers
 		protected function onReplacementImageLoaded(image:VUSprite):void{
 			if (_editorLayout.mapToolBar.selectedImage != -1) {
 				_workingState.replaceImageData(image, _editorLayout.mapToolBar.selectedImage);
-				invalidate(_workingState.vmap);
+				onMapLoaded(_workingState.vmap);
 				onSelectImage(null);
 			}
 		}
@@ -233,13 +236,6 @@ package com.visuengine.tools.mapeditor.managers
 		
 		protected function onWindowResize(event:Event):void {
 			_editorLayout.resizeForWindow(_stage.stageWidth, _stage.stageHeight);
-		}
-		
-		protected function invalidate(map:VMap):void {
-			destroyMap();
-			_workingState.vmap = map;
-			_editorLayout.buildNewMapView(_workingState.vmap);
-			_editorLayout.mapEditorPanel.applyEventHandlerToAllSprites(MouseEvent.MOUSE_DOWN, onClickSprite);
 		}
 		
 		protected function onGenerateUglyMap(event:MouseEvent):void{
