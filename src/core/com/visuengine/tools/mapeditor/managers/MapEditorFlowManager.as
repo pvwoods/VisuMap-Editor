@@ -55,16 +55,16 @@ package com.visuengine.tools.mapeditor.managers
 			var map:VMap = new VMap();
 			map.addLayer();
 			
-			onMapLoaded(map);
+			buildNewMap(map);
 			
 		}
 		
 		protected function onLoadMapClicked(event:MouseEvent):void{
-			VMapFileLoadRequest.dispatchRequestToLoadFileData(onMapLoaded);
+			VMapFileLoadRequest.dispatchRequestToLoadFileData(buildNewMap);
 		}
 		
 		
-		protected function onMapLoaded(map:VMap):void{
+		protected function buildNewMap(map:VMap):void{
 			destroyMap();
 			_workingState.vmap = map;
 			_editorLayout.buildNewMapView(_workingState.vmap);
@@ -213,7 +213,7 @@ package com.visuengine.tools.mapeditor.managers
 		protected function onReplacementImageLoaded(image:VUSprite):void{
 			if (_editorLayout.mapToolBar.selectedImage != -1) {
 				_workingState.replaceImageData(image, _editorLayout.mapToolBar.selectedImage);
-				onMapLoaded(_workingState.vmap);
+				buildNewMap(_workingState.vmap);
 				onSelectImage(null);
 			}
 		}
@@ -275,7 +275,7 @@ package com.visuengine.tools.mapeditor.managers
 				
 			}
 			
-			onMapLoaded(_workingState.vmap);
+			buildNewMap(_workingState.vmap);
 			
 		}
 		
