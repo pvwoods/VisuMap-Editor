@@ -62,6 +62,8 @@ package com.visuengine.tools.mapeditor.panels{
 		public function resize(w:uint, h:uint):void {
 			this.width = w;
 			this.height = h;
+			_viewPortSet = false;
+			setViewPort();
 		}
 		
 		public function setViewPort():void{

@@ -48,7 +48,7 @@ package com.visuengine.tools.mapeditor.layouts
 		}
 		
 		public function resizeForWindow(w:uint, h:uint):void {
-			_mapEditor.resize(w, h - 10);
+			_mapEditor.resize((w - _toolbar.width) - 15, h - 10);
 			_toolbar.resize((w - _mapEditor.width) - 10, h - 10);
 		}
 		
